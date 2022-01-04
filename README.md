@@ -1,0 +1,16 @@
+# Operating systems
+- Virtualization
+  - Conversion of a physical resource into a virtual form
+  - The OS is a resource manager
+  - Virtualization of CPU: Processes allow many programs to run, despite a limited number of CPUs
+  - Virtualization of memory: Each process is assigned a virtual address space that maps to a physical space
+- Concurrency
+  - Multi-threadding allows many threads to run at the same time
+- Persistence
+  - System memory in DRAM is volatile and is erased when power is lost
+  - Data in hard drives or SSDs are persistent
+- System calls
+  - The difference between routine procedure calls and system calls is that system calls change privilege levels
+  - The user mode is restricted, while kernel mode grants more privileges
+  - A trap transfers control to a trap handler which raises the privilege level
+  - Return-from-trap reverts back to user mode

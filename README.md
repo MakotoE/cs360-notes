@@ -14,3 +14,25 @@
   - The user mode is restricted, while kernel mode grants more privileges
   - A trap transfers control to a trap handler which raises the privilege level
   - Return-from-trap reverts back to user mode
+
+# Processes
+- A process is a running program
+- The OS virtualizes the CPU so that CPU time can be shared among running processes
+- Policy: A ruleset for making decisions
+- Scheduling policy: A policy for deciding which process gets to run on the CPU in a given moment
+- Process API
+  - Create
+    - Allocates resources and starts a process
+    - Processes are loaded in a lazy fasion, meaning programs are loaded when needed
+    - Memory space is allocated for the process
+    - 3 file descriptors are opened for a process: standard in, out, error
+  - Destroy: Stops and deallocates a process
+  - Wait: Wait for a process to stop
+  - Miscellaneous control: Other controls, such as suspending a process
+  - Status: How long a process has been running, what state it is in, etc.
+- Process states
+  - Running: Executing instructions
+  - Ready: A process is ready to run but it is on hold
+  - Blocked: The process is waiting for an event, such as file I/O
+- The list of processes are contained in a process list
+  - Each entry contains a process control block which has the context for each process

@@ -36,3 +36,22 @@
   - Blocked: The process is waiting for an event, such as file I/O
 - The list of processes are contained in a process list
   - Each entry contains a process control block which has the context for each process
+
+# UNIX process API
+- `fork()`
+  - Runs a copy of the current program
+  - All registers and memory are copied to clone program state(or a virtual space is set aside in the case of copy-on-write)
+  - Starts from where `fork()` was called
+  - In the parent side, `fork()` returns the child pid
+  - In the child, `fork()` returns 0
+- `wait()`
+  - Blocks until forked process of given pid ends
+  - If NULL is passed, it waits for all child processes to end
+- `exec()`
+  - Runs the given program to replace the current one
+  - The memory is replaced for that of the new program
+  - PID does not change
+  - The technique is known as overlaying
+  - Fork-exec: When a forked process starts a different program
+- `kill()`: Used to stop a process
+- `signal()`: Used to catch a signal

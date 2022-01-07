@@ -40,7 +40,7 @@
 # UNIX process API
 - `fork()`
   - Runs a copy of the current program
-  - All registers and memory are copied to clone program state(or a virtual space is set aside in the case of copy-on-write)
+  - All registers and memory are copied to clone program state (or a virtual space is set aside in the case of copy-on-write)
   - Starts from where `fork()` was called
   - In the parent side, `fork()` returns the child pid
   - In the child, `fork()` returns 0
@@ -55,3 +55,18 @@
   - Fork-exec: When a forked process starts a different program
 - `kill()`: Used to stop a process
 - `signal()`: Used to catch a signal
+
+# Limited direct execution
+- Time sharing is when CPU usage is shared between processes by time slices
+- Performing restricted operations
+  - At boot time, a trap table is created to map exceptions to trap handlers
+  - When a program wants to perform controlled operations such as I/O, a system call is made
+  - A trap instruction jumps to the kernel instructions and switches from user mode to kernel mode
+  - All register state is saved to a per-process kernel stack
+  - When the system call is finished, a return-from-trap instruction is called
+  - Register state is restored
+- The big problem in direct execution of programs is how to share the CPU and how the kernel can take back control
+  - If the program is running without giving back control, how is the kernel able to regain control?
+  - A program passes control back to the kernel in system calls
+  - A timer interrupt periodically calls kernel code so that it can run a scheduler if needed
+- In a context switch, the hardware saves the registers to the kernel stack. The kernel switches the registers in the stack to those of the new process. It returns from trap, and the hardware restores the switched registers.

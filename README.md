@@ -70,3 +70,18 @@
   - A program passes control back to the kernel in system calls
   - A timer interrupt periodically calls kernel code so that it can run a scheduler if needed
 - In a context switch, the hardware saves the registers to the kernel stack. The kernel switches the registers in the stack to those of the new process. It returns from trap, and the hardware restores the switched registers.
+
+# Scheduling
+- A scheduling metric can be used to quantify a scheduling policy
+- Turnaround time: Time when the job arrived in the system - time when the job was completed
+- Fairness
+  - How quickly a job can be started
+  - A round-robin policy is fair
+- Executing a job that takes the longest holds up all other jobs and decreases turnaround times
+- Preemptive scheduler
+  - A system that can pause processes to switch to other processes
+  - It makes sense to preempt a long-running job to finish shorter jobs
+- Response time
+  - The period of time between each time-slice of a 
+  - More job slices in a time period means the process feels responsive to the userjob
+- Overlap: When a process is blocked, other processes can be run

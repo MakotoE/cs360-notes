@@ -83,5 +83,16 @@
   - It makes sense to preempt a long-running job to finish shorter jobs
 - Response time
   - The period of time between each time-slice of a 
-  - More job slices in a time period means the process feels responsive to the userjob
+  - More job slices in a time period means the process feels responsive to the user
 - Overlap: When a process is blocked, other processes can be run
+- Multi-level feedback queue
+  - Optimizes turnaround time while making a system responsive
+  - The rules of a MLFQ
+    1. If Priority(A) > Priority(B), A runs
+    2. If Priority(A) = Priority(B), A & B run in a round-robin fashion
+    3. When a job enters the system, it is placed at the highest priority
+      - Ensures that short jobs are completed quickly
+    4. Once a job uses up a time allotment, its priority is reduced
+      - Allows newer jobs to get a higher priority
+    5. After some time period, move all jobs to the highest priority
+      - Avoids starving the lowest priority jobs of CPU time, so that they can at least make a litle progress even if there are higher priority jobs

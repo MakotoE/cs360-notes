@@ -96,3 +96,6 @@
       - Allows newer jobs to get a higher priority
     5. After some time period, move all jobs to the highest priority
       - Avoids starving the lowest priority jobs of CPU time, so that they can at least make a litle progress even if there are higher priority jobs
+
+# Address space
+- Processes need isolation of memory through virtual address spaces

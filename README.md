@@ -97,5 +97,18 @@
     5. After some time period, move all jobs to the highest priority
       - Avoids starving the lowest priority jobs of CPU time, so that they can at least make a litle progress even if there are higher priority jobs
 
-# Address space
+# Memory
 - Processes need isolation of memory through virtual address spaces
+
+# Heap memory API
+- `malloc()`
+  - Allocates memory on heap
+  - Parameter is number of bytes to allocate
+  - Returns a `void*` which must be casted
+  - `malloc(strlen(s) + 1))` allocates memory that can store a copy of `s`
+- `free()` deallocates memory
+- Common errors: Forgetting to allocate, not allocating enough memory, forgetting to initialize memory, forgetting to free memory, dangling pointer, double free, trying to free a pointer that is not heap memory
+- `malloc()` is not a system call. It is a library call which uses `brk` to change the location of the end of the heap
+- `mmap()` maps a file to memory, and can also create an anonymous mapping which is initialized to zero
+- `calloc()` allocates and zeros memory
+- `realloc()` increases the size of a block of memory, and gets moved to a new address if necessary

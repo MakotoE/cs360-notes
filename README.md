@@ -112,3 +112,13 @@
 - `mmap()` maps a file to memory, and can also create an anonymous mapping which is initialized to zero
 - `calloc()` allocates and zeros memory
 - `realloc()` increases the size of a block of memory, and gets moved to a new address if necessary
+
+# Segmentation
+
+- Segmentation: The separation of the physical address space into code, heap, and stack segments within the processor space. All code of all processes are grouped together, all stacks are grouped together, and all heap are together.
+- x86-64 does not have segmentation, and uses memory paging for memory protection instead
+- Reduces the amount of unusable fragments of memory inside each processor allocation
+- Enables memory protection
+  - An address starts with 1 or 2 bits of segment information (code, stack, or heap)
+  - By adding the offset address to the starting address and comparing it to the end address, out-of-bounds addresses can be detected
+  - Protection bits indicate whether a program can read, execute code, and/or write data in specific memory ranges

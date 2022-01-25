@@ -122,3 +122,34 @@
   - An address starts with 1 or 2 bits of segment information (code, stack, or heap)
   - By adding the offset address to the starting address and comparing it to the end address, out-of-bounds addresses can be detected
   - Protection bits indicate whether a program can read, execute code, and/or write data in specific memory ranges
+
+# Free-Space Management
+
+- External fragmentation: Having so much unused and unusable small bits of free space that there is little usable free space left
+- Internal fragmentation: Lots of unused space inside of allocated segments
+- Free list
+  - A list that keeps track of free spaces in memory
+  - Example: `head -> addr: 0, len: 10 -> addr: 20, len 10 -> NULL`
+  - When a chunk of memory is freed, the surrounding free space must be coalesced so that the free space nodes can be combined
+- Allocators track chunk sizes in a header block so that the correct amount of bytes is freed when `free()` is called
+- Allocation strategies
+  - Best fit
+    - Allocate in the smallest possible chunk of free space that the requested size can fit
+    - Must search the entire free list
+  - Worst fit
+    - Allocate in the largest chunk
+  - First fit
+    - Allocates in the first chunk that is big enough
+    - Fastest way to find a usable chunk
+    - May pollute the beginning of the free list with small objects
+  - Next fit
+    - Stores a pointer to the last allocated free space
+    - Allocates in the next free space and moves the pointer
+    - Spreads allocated chunks rather than polluting the beginning of the list
+  - Segregated lists
+    - Try to store chunks of similar sizes in one location in the address space
+    - Avoids fragmentation because the same chunks fit perfectly in this location
+  - Buddy allocator
+    - Divides the address space into a binary tree
+    - When a chunk is freed, the "buddy" of the binary node is combined if it is free
+    - Faster in coalescing free space

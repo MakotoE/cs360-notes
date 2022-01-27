@@ -114,7 +114,6 @@
 - `realloc()` increases the size of a block of memory, and gets moved to a new address if necessary
 
 # Segmentation
-
 - Segmentation: The separation of the physical address space into code, heap, and stack segments within the processor space. All code of all processes are grouped together, all stacks are grouped together, and all heap are together.
 - x86-64 does not have segmentation, and uses memory paging for memory protection instead
 - Reduces the amount of unusable fragments of memory inside each processor allocation
@@ -124,7 +123,6 @@
   - Protection bits indicate whether a program can read, execute code, and/or write data in specific memory ranges
 
 # Free-Space Management
-
 - External fragmentation: Having so much unused and unusable small bits of free space that there is little usable free space left
 - Internal fragmentation: Lots of unused space inside of allocated segments
 - Free list
@@ -153,3 +151,15 @@
     - Divides the address space into a binary tree
     - When a chunk is freed, the "buddy" of the binary node is combined if it is free
     - Faster in coalescing free space
+
+# Paging
+- Paging
+  - Memory is divided into fixed-size pieces
+  - Another approach to space management
+  - One page is a unit of memory
+  - Does not suffer from external fragmentation because of the fixed-size pages
+- A fixed number of prefix bits of the virtual address contains the virtual page number
+- Page table
+  - A per-process data structure
+  - Stores address translations between virtual pages and addresses for the corresponding pages in physical memory
+  - Each entry contains the physical frame number, protection bits (read/write/execute), and a present bit which indicates if the memory is stored in RAM or on disk

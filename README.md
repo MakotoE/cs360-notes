@@ -163,3 +163,10 @@
   - A per-process data structure
   - Stores address translations between virtual pages and addresses for the corresponding pages in physical memory
   - Each entry contains the physical frame number, protection bits (read/write/execute), and a present bit which indicates if the memory is stored in RAM or on disk
+
+# Translation-lookaside buffer
+- The translation-lookaside buffer is a part of the MMU that stores commonly used page table entries
+- Address space identifier (ASID)
+  - Since page tables are per-process, the TLB needs a way to translate addresses based on the process
+  - An ASID is like a PID that is stored with page frame numbers in the TLB
+  - It indicates which process should access which entry

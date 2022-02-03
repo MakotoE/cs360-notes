@@ -170,3 +170,21 @@
   - Since page tables are per-process, the TLB needs a way to translate addresses based on the process
   - An ASID is like a PID that is stored with page frame numbers in the TLB
   - It indicates which process should access which entry
+
+# Hybrid approach to paging
+- Page tables can be too big with a simple implementation
+- Bigger pages allow smaller page tables at the cost of more internal fragmentation
+- One way to save space is to use the concept of segmentation to store the bounds for each segment
+- Another is a multi-level page table
+  - The page directory stores a prefix and the page table identifier with a valid bit
+  - Each page table fits in a page
+  - Only allocates enough page tables for used space
+  - There is a trade off of necessitating a second load
+  - Example virtual address:
+  ```
+    8 7 6 5 4 3 2 1 0
+    |-a--|--b--|-c--|
+    a = Page directory index
+    b = Page table index
+    c = Offset
+  ```

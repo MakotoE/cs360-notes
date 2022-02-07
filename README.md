@@ -188,3 +188,12 @@
     b = Page table index
     c = Offset
   ```
+
+# Page swapping
+- Swapping pages to disk transparently enables the illusion of having a large virtual address space
+- The page table entry contains a present bit to indicate if data is stored on RAM or in disk
+- A page fault occurs when a read access needs to retrieve data from disk
+- A page-fault handler lets the OS know that a page fault occurred and requests that the page be loaded to RAM
+- Page-replacement policy
+  - A policy for choosing which old pages in RAM to replace with requested pages
+  - A swap daemon is activated when RAM usage is at high watermark and evicts pages until it reaches low watermark

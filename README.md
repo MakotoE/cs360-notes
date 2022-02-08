@@ -197,3 +197,9 @@
 - Page-replacement policy
   - A policy for choosing which old pages in RAM to replace with requested pages
   - A swap daemon is activated when RAM usage is at high watermark and evicts pages until it reaches low watermark
+
+# Threads
+- Threads enable parallelization and non-blocking programs
+- Threads can context switch like processes
+  - Threads store context in thread control blocks
+- Each thread has their own stack, but the heap is shared between all threads of a process

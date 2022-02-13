@@ -203,3 +203,35 @@
 - Threads can context switch like processes
   - Threads store context in thread control blocks
 - Each thread has their own stack, but the heap is shared between all threads of a process
+
+# Thread API
+- Thread creation and joining
+  ```c
+  pthread_create();
+  pthread_join(); // Always check the errors
+  ```
+- Locks
+  ```c
+  pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+  pthread_mutex_lock(&lock);
+  pthread_mutex_unlock(&lock);
+  ```
+- Condition variables
+  ```c
+  pthread_mutex_t mutex;
+  pthread_cond_t condition;
+  
+  // In thread 0
+  pthread_mutex_lock(&mutex);
+  while (!condition) {
+    pthread_cond_wait(&condition, &mutex); // Put in a while loop in case of of spurious wakeup
+  }
+  
+  pthread_mutex_unlock(&mutex);
+  
+  // In thread 1
+  pthread_mutex_lock(&mutex);
+
+  pthread_mutex_unlock(&mutex);
+  pthread_cond_signal(&condition); //wake up thread 1
+  ```

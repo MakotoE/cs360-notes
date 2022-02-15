@@ -216,22 +216,57 @@
   pthread_mutex_lock(&lock);
   pthread_mutex_unlock(&lock);
   ```
-- Condition variables
-  ```c
-  pthread_mutex_t mutex;
-  pthread_cond_t condition;
-  
-  // In thread 0
-  pthread_mutex_lock(&mutex);
-  while (!condition) {
-    pthread_cond_wait(&condition, &mutex); // Put in a while loop in case of of spurious wakeup
-  }
-  
-  pthread_mutex_unlock(&mutex);
-  
-  // In thread 1
-  pthread_mutex_lock(&mutex);
 
-  pthread_mutex_unlock(&mutex);
-  pthread_cond_signal(&condition); //wake up thread 1
-  ```
+
+# Condition variable
+
+```c
+pthread_mutex_t mutex;
+pthread_cond_t condition;
+
+// In thread 0
+pthread_mutex_lock(&mutex);
+while (!condition) {
+  pthread_cond_wait(&condition, &mutex); // Put in a while loop in case of of spurious wakeup
+}
+
+pthread_mutex_unlock(&mutex);
+
+// In thread 1
+pthread_mutex_lock(&mutex);
+
+pthread_mutex_unlock(&mutex);
+pthread_cond_signal(&condition); //wake up thread 1
+```
+
+- Spurious wakeup can occur when thread A is signalled to wake up, but a thread B starts before the thread A wakes up
+- Producer-consumer problem
+  - A shared buffer between a producer and consumer needs some synchronization mechanism to ensure the buffer is not accessed at the same time, and so the buffer doesn't become full or the consumer doesn't access an empty buffer
+  - The solution is to use 3 semaphores:
+    - `S`: This semaphore ensures only one consumer or producer can access the buffer
+    - `E`: Indicates that the buffer is empty
+    - `F`: Indicates that the buffer is full
+  - Pseudocode for producer and consumer
+    ```c
+    void producer() {
+      while(T) {
+        produce()
+        wait(E)
+        wait(S)
+        append()
+        signal(S)
+        signal(F)
+      }
+    }
+    void consumer() {
+      while(T) {
+        wait(F)
+        wait(S)
+        take()
+        signal(S)
+        signal(E)
+        use()
+      }
+    }
+    ```
+  

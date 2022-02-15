@@ -249,7 +249,7 @@ pthread_cond_signal(&condition); //wake up thread 1
   - Pseudocode for producer and consumer
     ```c
     void producer() {
-      while(T) {
+      while (true) {
         produce()
         wait(E)
         wait(S)
@@ -259,7 +259,7 @@ pthread_cond_signal(&condition); //wake up thread 1
       }
     }
     void consumer() {
-      while(T) {
+      while (true) {
         wait(F)
         wait(S)
         take()

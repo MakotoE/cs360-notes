@@ -277,7 +277,6 @@ sem_t m;
 sem_init(&m, 0, 0);
 sem_wait(&m); // Waits for value to be 1
 
-
 sem_post(&m); // Increments value
 ```
 

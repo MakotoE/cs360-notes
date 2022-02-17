@@ -269,4 +269,17 @@ pthread_cond_signal(&condition); //wake up thread 1
       }
     }
     ```
-  
+
+# Semaphores
+
+```c
+sem_t m;
+sem_init(&m, 0, 0);
+sem_wait(&m); // Waits for value to be 1
+
+
+sem_post(&m); // Increments value
+```
+
+- Condition variables have a boolean state of waiting or running, and is typically used for mutually exclusive access to a variable.
+- Semaphores combines a mutex and a counter, and is used for shared access to a resource.

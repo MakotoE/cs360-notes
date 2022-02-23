@@ -259,7 +259,7 @@ pthread_cond_signal(&condition); //wake up thread 1
       }
     }
     void consumer() {
-      while (true) {
+        while (true) {
         wait(F)
         wait(S)
         take()
@@ -282,3 +282,22 @@ sem_post(&m); // Increments value
 
 - Condition variables have a boolean state of waiting or running, and is typically used for mutually exclusive access to a variable.
 - Semaphores combines a mutex and a counter, and is used for shared access to a resource.
+
+# I/O devices
+
+- There are two levels of I/O connections
+  - I/O bus such as PCI: fast
+  - Peripheral bus such as USB: slow
+- Polling for data may waste CPU cycles
+- An interrupt can be used to return from an operation
+  - This allows the CPU to do other tasks during I/O
+  - But it also means a context switch is necessary
+- A hybrid approach of polling and interrupt may take advantage of both
+- To facilitate data transfer between a device and memory, a direct memory access (DMA) can do the copying
+- Device interaction
+  - I/O instructions may be used to specify data to be transfered between the device and a CPU register
+  - Memory-mapped I/O transfers data using shared memory spaces
+- File system stack
+  - File system API
+  - Generic block layer
+  - Device driver

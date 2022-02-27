@@ -301,3 +301,18 @@ sem_post(&m); // Increments value
   - File system API
   - Generic block layer
   - Device driver
+
+# Hard disk drives
+
+- Disks are made of platters, and each platter has circular tracks
+- Seek time includes rotational delay and settling time for the arm
+- Buffers in the hard disk allow read and write caching
+- Disk scheduling
+  - Shortest seek time first
+    - Orders requests by the nearest track
+    - May cause starvation to areas far from the current position
+  - SCAN (elevator)
+    - Services requests in order of data locations
+    - Resembles an elevator that continuously moves up and down
+  - Shortest positioning time first
+    - Orders requests by the closest position

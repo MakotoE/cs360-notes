@@ -259,7 +259,7 @@ pthread_cond_signal(&condition); //wake up thread 1
       }
     }
     void consumer() {
-        while (true) {
+      while (true) {
         wait(F)
         wait(S)
         take()

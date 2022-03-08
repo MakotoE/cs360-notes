@@ -316,3 +316,25 @@ sem_post(&m); // Increments value
     - Resembles an elevator that continuously moves up and down
   - Shortest positioning time first
     - Orders requests by the closest position
+
+# File and directories
+- inode: A data structure that holds file attributes and disk block locations
+- Each process maintains an array of open files in the open file table
+- Sharing a file descriptor
+  - On fork, a file descriptor is shared
+  - File offsets are the same between the parent and child
+  - `dup()` creates a new file descriptor that refers to the same file as the given descriptor
+- Renames are atomic
+- A file metadata contains a lot of info about a file such as: inode number, protection mode, hard link count, owner user, file size, block size, time of last access
+- Hard link
+  - Created with `ln`
+  - A hard link is a directory entry that points to the same inode as another entry
+  - Hard link count is stored in metadata so that the block can be erased when no hard link exists that points to it
+  - May only point to files
+- Symbolic link/soft link
+  - A file that references another file
+  - Can point to files or directories
+  - A soft link does not guarantee that the referenced file exists
+- File system mounting
+  - `mkfs` initializes an empty file system on a disk
+  - `mount` is used to mount the file system to a directory tree

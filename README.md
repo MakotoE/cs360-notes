@@ -338,3 +338,14 @@ sem_post(&m); // Increments value
 - File system mounting
   - `mkfs` initializes an empty file system on a disk
   - `mount` is used to mount the file system to a directory tree
+
+# File locality
+
+- The old unix file system contained a super block, inodes region, and data
+  - The super block contains information about the file system
+  - Performance was bad because the disk had to move back and forth between the inodes and data
+- Fast File System
+  - Divides the disk into cylinder groups
+    - FFS tries to put files in the same directory in the same cylinder group to decrease seek times
+  - Each cylinder group contains a redundant super block, an inode bitmap, a data bitmap, and data
+    - The bitmaps indicate which blocks are allocated

@@ -349,3 +349,30 @@ sem_post(&m); // Increments value
     - FFS tries to put files in the same directory in the same cylinder group to decrease seek times
   - Each cylinder group contains a redundant super block, an inode bitmap, a data bitmap, and data
     - The bitmaps indicate which blocks are allocated
+
+# Flash-based SSDs
+
+- Single-level cells are faster than multi-level cells but more expensive
+- Bits are grouped into pages which are grouped into blocks
+- Flash operations
+  - Read: A page is read at a time
+  - Erase: An entire block is erased
+  - Program: A page is written to
+- Example of a block state
+  - `i` = invalid page; `E` = erased page; `V` = valid page
+  1. `iiii`: All pages in a block start invalid
+  2. `EEEE`: The block is erased
+  3. `VEEE`: Page 0 is programmed
+  4. `VVEE`: Page 1 is programmed
+  5. `EEEE`: The block is erased
+- Flash cells wear out, so storage algorithms must be optimized to reduce wear and maintain performance
+  - Wear leveling: making sure that wear levels are equal throughout all cells
+- Flash translation layer: Converts logical blocks into phyiscal blocks
+- Write amplification: More data is written to storage than actual amount of data to be stored
+- Direct mapping: A direct mapped SSD is bad because this would mean the same blocks will be erased and written to many times, unevenly wearing out a cell
+- Log structured file system
+  - Adds every new write to incrementing pages to reduce write amplification
+  - The FTL tracks where data is stored for each logical block
+  - When an old state is replaced with a new one, the FTL replaces the old mapping with the new mapping
+  - Unused blocks are erased through garbage collection
+  - 

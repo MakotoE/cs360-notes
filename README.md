@@ -179,7 +179,7 @@
   - The page directory stores a prefix and the page table identifier with a valid bit
   - Each page table fits in a page
   - Only allocates enough page tables for used space
-  - There is a trade off of necessitating a second load
+  - There is a trade off of requiring two reads
   - Example virtual address:
   ```
     8 7 6 5 4 3 2 1 0
@@ -375,4 +375,3 @@ sem_post(&m); // Increments value
   - The FTL tracks where data is stored for each logical block
   - When an old state is replaced with a new one, the FTL replaces the old mapping with the new mapping
   - Unused blocks are erased through garbage collection
-  - 
